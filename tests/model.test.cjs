@@ -8,6 +8,8 @@ test('recognizes chats, nested project chats, and project folders with stable ID
   assert.deepEqual(parseLink('/g/g-p-123/project'), { id: 'folder:g-p-123', type: 'folder' });
   assert.deepEqual(parseLink('/g/g-p-123'), { id: 'folder:g-p-123', type: 'folder' });
   assert.deepEqual(parseLink('/project/abc-123/'), { id: 'folder:abc-123', type: 'folder' });
+  assert.deepEqual(parseLink('/projects/abc-123/'), { id: 'folder:abc-123', type: 'folder' });
+  assert.deepEqual(parseLink('/g/g-alternative/project'), { id: 'folder:g-alternative', type: 'folder' });
   assert.deepEqual(parseLink('https://chat.openai.com/c/abc'), { id: 'chat:abc', type: 'chat' });
 });
 test('ignores custom GPTs, unrelated pages, outside sites, and unsafe protocols', () => {
@@ -43,4 +45,15 @@ test('defaults are independent and preserve valid customization', () => {
   assert.equal(cleaned.items['folder:abc'].type, 'folder');
   assert.equal(cleaned.background.color, '#123456');
   assert.deepEqual(normalize(cleaned), cleaned);
+});
+test('keeps saved highlights when migrating older settings and validates font colors', () => {
+  const old = normalize({ items: { 'folder:work': { color: '#aabbcc', title: 'Work' } } });
+  assert.equal(old.fontColor, '');
+  assert.equal(old.items['folder:work'].textColor, '');
+  assert.equal(old.items['folder:work'].color, '#aabbcc');
+  const current = normalize({ fontColor: '#123456', items: { 'chat:one': { textColor: '#ffffff' } } });
+  assert.equal(current.fontColor, '#123456');
+  assert.equal(current.items['chat:one'].textColor, '#ffffff');
+  assert.equal(normalize({ fontColor: 'red; display:none', items: { 'chat:one': { textColor: 'url(evil)' } } }).fontColor, '');
+  assert.equal(normalize({ items: { 'chat:one': { textColor: 'url(evil)' } } }).items['chat:one'].textColor, '');
 });

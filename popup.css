@@ -77,6 +77,8 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
 .item-colors input { margin-left: auto; }
 .icon-actions { display: flex; justify-content: space-between; margin-top: 13px; padding-top: 10px; border-top: 1px solid #f0ebf5; }
 .icon-upload { color: #8e73b7; font-size: 10px; }
+.item-font-row { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+.item-font-row .custom-color { margin: 0; }
 #chat-search { width: 100%; border: 1px solid #e5dfeb; background: white; border-radius: 8px; padding: 10px 12px; font-size: 11px; margin-bottom: 14px; }
 .empty { padding: 26px 14px; text-align: center; color: #9c90ac; line-height: 1.8; font-size: 11px; border: 1px dashed #dfd6ea; border-radius: 10px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

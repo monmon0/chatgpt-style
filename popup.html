@@ -44,10 +44,12 @@
         <input type="range" id="dim" min="0" max="80" value="35">
         <button id="remove-background" class="text-button" hidden>Remove image</button>
       </div>
+      <div class="label-row"><label for="font-color">Font color</label><button id="reset-font-color" class="text-button">Use default</button></div>
+      <label class="custom-color"><input type="color" id="font-color" value="#faf9ff"><span>Chat text and sidebar</span><code id="font-color-value">Default</code></label>
       <div class="tip"><span>✧</span><p>Your colors and images stay in this browser. Your space follows you between ChatGPT tabs.</p></div>
     </section>
     <section id="folders" role="tabpanel" aria-labelledby="tab-folders" hidden>
-      <div class="section-heading"><h2>A place for every idea</h2><p>Highlight your Projects and give them an icon.</p></div>
+      <div class="section-heading"><h2>A place for every idea</h2><p>Highlight your folders and give them an icon.</p></div>
       <div id="folder-list" class="item-list"></div>
     </section>
     <section id="chats" role="tabpanel" aria-labelledby="tab-chats" hidden>
@@ -62,6 +64,7 @@
     <article class="item-card">
       <div class="item-heading"><span class="item-icon" aria-hidden="true"></span><strong class="item-title"></strong><button class="clear-item" title="Clear this item's style" aria-label="Clear this item's style">×</button></div>
       <div class="item-colors" role="group" aria-label="Highlight color"></div>
+      <div class="item-font-row"><label class="custom-color"><input type="color" class="item-font-color" value="#faf9ff"><span>Font color</span></label><button class="reset-item-font text-button">Use default</button></div>
       <div class="icon-actions"><label class="icon-upload">↑ Upload icon<input type="file" accept="image/png,image/jpeg,image/webp" hidden></label><button class="remove-icon text-button">Remove icon</button></div>
     </article>
   </template>

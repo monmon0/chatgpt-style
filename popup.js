@@ -50,6 +50,9 @@
   function renderAppearance() {
     const bg = state.background;
     $('#enabled').checked = state.enabled;
+    $('#font-color').value = state.fontColor || '#faf9ff';
+    $('#font-color-value').textContent = state.fontColor ? state.fontColor.toUpperCase() : 'Default';
+    $('#preview').style.color = state.enabled && state.fontColor ? state.fontColor : '#faf9ff';
     document.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === bg.mode)));
     $('#color-controls').hidden = bg.mode !== 'color';
     $('#image-controls').hidden = bg.mode !== 'image';
@@ -74,8 +77,8 @@
     return [...entries.values()];
   }
   function updateItem(item, patch) {
-    state.items[item.id] = { color: '', icon: '', ...state.items[item.id], title: item.title, type: item.type, ...patch };
-    if (!state.items[item.id].color && !state.items[item.id].icon) delete state.items[item.id];
+    state.items[item.id] = { color: '', textColor: '', icon: '', ...state.items[item.id], title: item.title, type: item.type, ...patch };
+    if (!state.items[item.id].color && !state.items[item.id].textColor && !state.items[item.id].icon) delete state.items[item.id];
     persist();
   }
   function renderItems() {
@@ -90,7 +93,7 @@
       if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'empty';
-        empty.textContent = query && type === 'chat' ? 'No chats match your search.' : type === 'folder' ? 'Your ChatGPT Projects will appear here. Open ChatGPT, expand the sidebar, then click ↻ above.' : 'Open your ChatGPT sidebar, then click ↻ to see your conversations.';
+        empty.textContent = query && type === 'chat' ? 'No chats match your search.' : type === 'folder' ? 'No folder headings detected yet. Expand a folder to show its chats, then click ↻ above.' : 'Open your ChatGPT sidebar, then click ↻ to see your conversations.';
         list.append(empty);
       }
       for (const item of filtered) {
@@ -116,6 +119,12 @@
         custom.setAttribute('aria-label', `Custom highlight color for ${item.title}`);
         custom.addEventListener('change', () => { updateItem(item, { color: custom.value }); renderItems(); });
         palette.append(custom);
+        const font = card.querySelector('.item-font-color');
+        font.value = style.textColor || state.fontColor || '#faf9ff';
+        font.setAttribute('aria-label', `Font color for ${item.title}`);
+        font.addEventListener('change', () => { updateItem(item, { textColor: font.value }); renderItems(); });
+        card.querySelector('.reset-item-font').hidden = !style.textColor;
+        card.querySelector('.reset-item-font').addEventListener('click', () => { updateItem(item, { textColor: '' }); renderItems(); });
         card.querySelector('.icon-actions').hidden = type !== 'folder';
         card.querySelector('.remove-icon').hidden = !style.icon;
         card.querySelector('.remove-icon').addEventListener('click', () => { updateItem(item, { icon: '' }); renderItems(); });
@@ -184,6 +193,7 @@
       button.tabIndex = selected ? 0 : -1;
       $(`#${button.getAttribute('aria-controls')}`).hidden = !selected;
     }
+    if (tab.id !== 'tab-appearance') refresh();
   }
   for (const tab of tabs) {
     tab.addEventListener('click', () => selectTab(tab));
@@ -199,6 +209,9 @@
     });
   }
   $('#enabled').addEventListener('change', () => { state.enabled = $('#enabled').checked; renderAppearance(); persist(); });
+  $('#font-color').addEventListener('input', () => { state.fontColor = $('#font-color').value; renderAppearance(); });
+  $('#font-color').addEventListener('change', () => { persist(); renderItems(); });
+  $('#reset-font-color').addEventListener('click', () => { state.fontColor = ''; renderAppearance(); renderItems(); persist(); });
   document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => { state.background.mode = button.dataset.mode; renderAppearance(); persist(); }));
   $('#background-color').addEventListener('input', () => { state.background.color = $('#background-color').value; renderAppearance(); });
   $('#background-color').addEventListener('change', persist);

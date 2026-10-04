@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Studio",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Give ChatGPT your own colors, backgrounds, chat highlights, and project icons.",
   "permissions": ["storage", "activeTab"],
   "action": { "default_popup": "popup.html", "default_title": "ChatGPT Studio" },

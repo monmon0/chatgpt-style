@@ -17,12 +17,12 @@ html[data-cgstudio-background] main .bg-token-main-surface-primary,
 html[data-cgstudio-background] #thread {
   background-color: transparent !important;
 }
-a[data-cgstudio-highlight] {
+[data-cgstudio-highlight] {
   background-color: color-mix(in srgb, var(--cgstudio-color) 22%, transparent) !important;
   box-shadow: inset 3px 0 0 var(--cgstudio-color) !important;
   border-radius: 8px !important;
 }
-a[data-cgstudio-highlight]:hover {
+[data-cgstudio-highlight]:hover {
   background-color: color-mix(in srgb, var(--cgstudio-color) 34%, transparent) !important;
 }
 img[data-cgstudio-icon] {
@@ -33,6 +33,15 @@ img[data-cgstudio-icon] {
   flex-shrink: 0 !important;
   margin-right: 7px !important;
 }
-/* Hide only the leading project glyph; keep the row's menu controls. */
-a[data-cgstudio-folder-icon] > svg:first-of-type,
-a[data-cgstudio-folder-icon] > div:first-of-type > svg:first-child { display: none !important; }
+/* Hide only the folder glyph; keep the row's menu controls. */
+[data-cgstudio-original-icon] { display: none !important; }
+html[data-cgstudio-font] :is(main, nav, aside, #sidebar, #stage-sidebar, #stage-slideover-sidebar, [data-testid="sidebar"], [data-sidebar]),
+html[data-cgstudio-font] :is(main, nav, aside, #sidebar, #stage-sidebar, #stage-slideover-sidebar, [data-testid="sidebar"], [data-sidebar]) :is(p, span, a, label, li, h1, h2, h3, h4, textarea, [contenteditable="true"]):not(pre *, code *),
+html[data-cgstudio-font] [data-cgstudio-entry],
+html[data-cgstudio-font] [data-cgstudio-entry] :is(span, div) {
+  color: var(--cgstudio-font-color) !important;
+}
+html [data-cgstudio-entry][data-cgstudio-text],
+html [data-cgstudio-entry][data-cgstudio-text] :is(span, div, p) {
+  color: var(--cgstudio-item-text) !important;
+}
