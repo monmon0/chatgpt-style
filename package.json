@@ -1,0 +1,6 @@
+{
+  "name": "chatgpt-studio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "test": "node --test tests/*.test.cjs", "check": "node --check model.js && node --check content.js && node --check popup.js" }
+}

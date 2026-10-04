@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Studio",
+  "version": "1.0.0",
+  "description": "Give ChatGPT your own colors, backgrounds, chat highlights, and project icons.",
+  "permissions": ["storage", "activeTab"],
+  "action": { "default_popup": "popup.html", "default_title": "ChatGPT Studio" },
+  "content_scripts": [{
+    "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+    "js": ["model.js", "content.js"],
+    "css": ["content.css"],
+    "run_at": "document_idle"
+  }]
+}

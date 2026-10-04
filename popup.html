@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT Studio</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="model.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="brand-mark" aria-hidden="true">✳</div>
+    <div class="brand"><h1>ChatGPT <span>Studio</span></h1><p>A little more you.</p></div>
+    <label class="toggle" title="Enable custom styling"><input id="enabled" type="checkbox" checked aria-label="Enable custom styling"><span></span></label>
+  </header>
+  <main>
+    <div class="connection"><span id="connection-dot"></span><span id="connection-text">Connecting to ChatGPT…</span><button id="refresh" title="Refresh sidebar items" aria-label="Refresh sidebar items">↻</button></div>
+    <div class="tabs" role="tablist" aria-label="Customization category">
+      <button id="tab-appearance" role="tab" aria-selected="true" aria-controls="appearance">Appearance</button>
+      <button id="tab-folders" role="tab" aria-selected="false" aria-controls="folders" tabindex="-1">Folders <span id="folder-count">0</span></button>
+      <button id="tab-chats" role="tab" aria-selected="false" aria-controls="chats" tabindex="-1">Chats <span id="chat-count">0</span></button>
+    </div>
+    <section id="appearance" role="tabpanel" aria-labelledby="tab-appearance">
+      <div class="section-heading"><h2>Set the mood</h2><p>Make your thinking space feel like home.</p></div>
+      <div class="preview" id="preview">
+        <div class="preview-sidebar"><i></i><i></i><i></i><i></i></div>
+        <div class="preview-main"><span class="preview-spark">✳</span><strong>Your space. Your style.</strong><div class="preview-input">Ask something wonderful <span>↑</span></div></div>
+        <span class="preview-label">LIVE PREVIEW</span>
+      </div>
+      <div class="label-row"><label for="background-mode">Background</label><span>INSTANTLY APPLIED</span></div>
+      <div class="segmented" id="background-mode" role="group" aria-label="Background type">
+        <button data-mode="default" aria-pressed="true">Default</button><button data-mode="color" aria-pressed="false">Solid color</button><button data-mode="image" aria-pressed="false">Image</button>
+      </div>
+      <div id="color-controls" hidden>
+        <div class="label-row"><label for="background-color">Choose a color</label></div>
+        <div class="color-palette" id="background-palette"></div>
+        <label class="custom-color"><input type="color" id="background-color" value="#171923"><span>Custom color</span><code id="color-value">#171923</code></label>
+      </div>
+      <div id="image-controls" hidden>
+        <label class="upload-zone" for="background-upload"><span class="upload-symbol">↑</span><strong id="upload-label">Choose your backdrop</strong><span>PNG, JPG or WebP · up to 10 MB</span></label>
+        <input type="file" id="background-upload" accept="image/png,image/jpeg,image/webp" hidden>
+        <div class="label-row"><label for="dim">Image dimming</label><output id="dim-value" for="dim">35%</output></div>
+        <input type="range" id="dim" min="0" max="80" value="35">
+        <button id="remove-background" class="text-button" hidden>Remove image</button>
+      </div>
+      <div class="tip"><span>✧</span><p>Your colors and images stay in this browser. Your space follows you between ChatGPT tabs.</p></div>
+    </section>
+    <section id="folders" role="tabpanel" aria-labelledby="tab-folders" hidden>
+      <div class="section-heading"><h2>A place for every idea</h2><p>Highlight your Projects and give them an icon.</p></div>
+      <div id="folder-list" class="item-list"></div>
+    </section>
+    <section id="chats" role="tabpanel" aria-labelledby="tab-chats" hidden>
+      <div class="section-heading"><h2>Find your favorites</h2><p>Give important conversations a splash of color.</p></div>
+      <input type="search" id="chat-search" placeholder="Search your chats…" aria-label="Search your chats">
+      <div id="chat-list" class="item-list"></div>
+    </section>
+  </main>
+  <footer><span id="save-status" role="status" aria-live="polite">Saved on this device</span><button id="reset" class="text-button">Reset styles</button></footer>
+  <div id="notice" role="alert" hidden></div>
+  <template id="item-template">
+    <article class="item-card">
+      <div class="item-heading"><span class="item-icon" aria-hidden="true"></span><strong class="item-title"></strong><button class="clear-item" title="Clear this item's style" aria-label="Clear this item's style">×</button></div>
+      <div class="item-colors" role="group" aria-label="Highlight color"></div>
+      <div class="icon-actions"><label class="icon-upload">↑ Upload icon<input type="file" accept="image/png,image/jpeg,image/webp" hidden></label><button class="remove-icon text-button">Remove icon</button></div>
+    </article>
+  </template>
+</body>
+</html>

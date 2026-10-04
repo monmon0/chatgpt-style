@@ -1,0 +1,38 @@
+#cgstudio-background {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+html[data-cgstudio-background] { background: transparent !important; isolation: isolate; }
+html[data-cgstudio-background] body,
+html[data-cgstudio-background] main,
+html[data-cgstudio-background] #__next,
+html[data-cgstudio-background] #root,
+html[data-cgstudio-background] .bg-token-main-surface-primary:has(main),
+html[data-cgstudio-background] .bg-token-bg-primary:has(main),
+html[data-cgstudio-background] main .bg-token-main-surface-primary,
+html[data-cgstudio-background] #thread {
+  background-color: transparent !important;
+}
+a[data-cgstudio-highlight] {
+  background-color: color-mix(in srgb, var(--cgstudio-color) 22%, transparent) !important;
+  box-shadow: inset 3px 0 0 var(--cgstudio-color) !important;
+  border-radius: 8px !important;
+}
+a[data-cgstudio-highlight]:hover {
+  background-color: color-mix(in srgb, var(--cgstudio-color) 34%, transparent) !important;
+}
+img[data-cgstudio-icon] {
+  width: 23px !important;
+  height: 23px !important;
+  object-fit: cover !important;
+  border-radius: 6px !important;
+  flex-shrink: 0 !important;
+  margin-right: 7px !important;
+}
+/* Hide only the leading project glyph; keep the row's menu controls. */
+a[data-cgstudio-folder-icon] > svg:first-of-type,
+a[data-cgstudio-folder-icon] > div:first-of-type > svg:first-child { display: none !important; }
